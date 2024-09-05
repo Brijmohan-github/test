@@ -6,6 +6,7 @@ const globalMiddleware = [
   'Adonis/Middleware/Session',
   'Adonis/Middleware/Shield',  // This handles CSRF protection and may cause 403 errors
   'Adonis/Middleware/AuthInit',
+  
 ];
 
 const namedMiddleware = {
