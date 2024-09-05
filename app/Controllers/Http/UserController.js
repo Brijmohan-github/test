@@ -1,11 +1,11 @@
 // app/Controllers/Http/UserController.js
-const User = require('../../Models/User')
+const User = require('../../Models/user.model')
 
 class UserController {
   // Fetch all users
   async index({ response }) {
     try {
-      const users = await User.find()
+      const users = await User.find().exec()
       return response.json(users)
     } catch (error) {
       return response.status(500).json({ message: 'Error fetching users', error })
@@ -14,10 +14,17 @@ class UserController {
 
   // Create a new user
   async store({ request, response }) {
-    const { name, email, password } = request.only(['name', 'email', 'password'])
+    const { email, username, password, firstName, lastName } = request.only(['email', 'username', 'password', 'firstName', 'lastName'])
 
     try {
-      const newUser = new User({ name, email, password })
+      const newUser = new User({
+        email,
+        username,
+        password,
+        firstName,
+        lastName,
+      })
+
       await newUser.save()
       return response.status(201).json(newUser)
     } catch (error) {
@@ -28,7 +35,7 @@ class UserController {
   // Fetch a single user by ID
   async show({ params, response }) {
     try {
-      const user = await User.findById(params.id)
+      const user = await User.findById(params.id).exec()
       if (!user) {
         return response.status(404).json({ message: 'User not found' })
       }
@@ -40,10 +47,15 @@ class UserController {
 
   // Update a user by ID
   async update({ params, request, response }) {
-    const { name, email, password } = request.only(['name', 'email', 'password'])
+    const { email, username, password, firstName, lastName } = request.only(['email', 'username', 'password', 'firstName', 'lastName'])
 
     try {
-      const updatedUser = await User.findByIdAndUpdate(params.id, { name, email, password }, { new: true })
+      const updatedUser = await User.findByIdAndUpdate(
+        params.id,
+        { email, username, password, firstName, lastName },
+        { new: true }
+      ).exec()
+
       if (!updatedUser) {
         return response.status(404).json({ message: 'User not found' })
       }
@@ -56,7 +68,7 @@ class UserController {
   // Delete a user by ID
   async destroy({ params, response }) {
     try {
-      const deletedUser = await User.findByIdAndDelete(params.id)
+      const deletedUser = await User.findByIdAndDelete(params.id).exec()
       if (!deletedUser) {
         return response.status(404).json({ message: 'User not found' })
       }

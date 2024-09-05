@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required:[true,'Please add emaid'],
+        required:[true,'Please add email'],
         trim: true,
     },
     uniqueId:{
@@ -216,7 +216,7 @@ const UserSchema = new mongoose.Schema({
        type: Number,
         default: 0,
     },
-    exposureLimit	: {
+    exposureLimit: {
        type: Number,
         default: 1000,
     },
@@ -283,12 +283,20 @@ const UserSchema = new mongoose.Schema({
     usedCasinoLimit: {
         type: Number,
         default: 0,
+    },
+    gameID: {
+        type: String,
+        default: null,
+    },
+    productFamily: {
+        type: Number,
+        default: 0,
     }
 },
 { 
     timestamps: true
- });
- 
+});
+
 UserSchema.plugin(mongoosePaginate);
 const User = mongoose.model("user", UserSchema);
 
