@@ -1,21 +1,21 @@
-// start/mongoose.js
-const mongoose = require('mongoose')
+require('dotenv').config(); // Load environment variables from .env file
+const mongoose = require('mongoose');
 
-const MONGO_URI = 'mongodb+srv://bhavesh-mojo:qun8c9v8epkuh0Lu@cluster-test.vpjht.mongodb.net/Cluster-test' 
+const dbURI = process.env.DB_URI; // Use the environment variable for the database URI
 
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
-db.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
+db.on('error', (error) => {
+    console.error('Database connection error:', error);
 });
 
 db.once('open', () => {
-  console.log('Successfully connected to MongoDB');
+    console.log('Connected to MongoDB');
 });
 
-module.exports = mongoose;
+module.exports = db;
