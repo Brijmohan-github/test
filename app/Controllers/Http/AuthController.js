@@ -3,41 +3,36 @@ const User = require('../../Models/user.model'); // Ensure this path is correct
 class AuthController {
   async authenticate({ request, response }) {
     // Extract Token, GameId, and ProductFamily from the request
-    const { token, gameID, productFamily } = request.only(['token', 'gameID', 'productFamily']);
+    const { Token, GameId, ProductFamily } = request.only(['Token', 'GameId', 'ProductFamily']);
 
-    console.log('Received Token:', token);
-    console.log('Received ProductFamily:', productFamily);
-    console.log('Received GameId:', gameID);
+    console.log('Received Token:', Token);
+    console.log('Received ProductFamily:', ProductFamily);
+    console.log('Received GameId:', GameId);
 
     try {
       // Validate the received data
-      if (!token || !gameID || !productFamily) {
+      if (!Token || !GameId || !ProductFamily) {
         return response.status(400).json({ message: 'Missing required parameters' });
       }
 
-      // Find the user based on the token, GameId, and ProductFamily
-      const user = await User.findOne({
-        token: token,
-        gameID: gameID,          
-        productFamily: productFamily 
-      });
+      // Here, instead of querying the database, return dummy data for testing
+      const dummyUser = {
+        _id: 'testUserId',
+        username: 'testUser',
+        currency: 'USD',
+        totalCoins: 100.00,
+      };
 
-
-      // Check if the user exists
-      if (!user) {
-        return response.status(404).json({ message: 'User not found or invalid token' });
-      }
-
-      // Assuming you have a function to create a new game session
+      // Generate a new session ID
       const sessionId = generateSessionId();
 
-      // Return the required information
+      // Return the required information with dummy data
       return response.status(200).json({
         SessionId: sessionId,
-        UserId: user._id,
-        Currency: user.currency,
-        Balance: user.totalCoins, // Use user.totalCoins for balance
-        Username: user.username,
+        UserId: dummyUser._id,
+        Currency: dummyUser.currency,
+        Balance: dummyUser.totalCoins,
+        Username: dummyUser.username,
       });
 
     } catch (error) {

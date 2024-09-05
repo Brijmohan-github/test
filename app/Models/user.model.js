@@ -1,42 +1,42 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 const UserSchema = new mongoose.Schema({
     userType: {
         type: String,
-        enum : ["owner","sub_owner", "super_admin","admin","sub_admin",'senior_super','super_agent','agent','user'],
+        enum: ["owner", "sub_owner", "super_admin", "admin", "sub_admin", "senior_super", "super_agent", "agent", "user"],
         default: "user",
     },
     createdById: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
-        default:null
+        ref: "users",
+        default: null
     },
     authority: {
         type: Number,
-        default:1
+        default: 1
     },
     email: {
         type: String,
-        required:[true,'Please add email'],
+        required: [true, 'Please add email'],
         trim: true,
     },
-    uniqueId:{
+    uniqueId: {
         type: String,
         trim: true,
-        default:null
+        default: null
     },
     username: {
         type: String,
-        required:[true,'Please add username'],
-        unique:true,
+        required: [true, 'Please add username'],
+        unique: true,
         trim: true,
     },
     password: {
         type: String,
-        required:[true,'Please add password'],
+        required: [true, 'Please add password'],
     },
-    phone:{
+    phone: {
         type: Number,
         default: 0,
     },
@@ -91,11 +91,11 @@ const UserSchema = new mongoose.Schema({
         default: null,
     },
     isLoggedIn: {
-        type:Boolean,
+        type: Boolean,
         default: false,
     },
     betsBlocked: {
-        type:Boolean,
+        type: Boolean,
         default: false,
     },
     userShareType: {
@@ -118,86 +118,86 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    reference:{
+    reference: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    owCutShare:{
+    owCutShare: {
         type: Number,
         default: 100,
     },
-    sowCutShare:{
+    sowCutShare: {
         type: Number,
         default: 100,
     },
-    suaCutShare:{
+    suaCutShare: {
         type: Number,
         default: 100,
     },
-    adCutShare:{
+    adCutShare: {
         type: Number,
         default: 100,
     },
-    sadCutShare:{
+    sadCutShare: {
         type: Number,
         default: 100,
     },
-    ssmCutShare:{
+    ssmCutShare: {
         type: Number,
         default: 100,
     },
-    saCutShare:{
+    saCutShare: {
         type: Number,
         default: 100,
     },
-    clCutShare:{
+    clCutShare: {
         type: Number,
         default: 100,
     },
-    ownerId:{
+    ownerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    subOwnerId:{
+    subOwnerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    adminId:{
+    adminId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
-        default: null,
-    }, 
-    superAdminId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    subAdminId:{
+    superAdminId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    superSeniorId:{
+    subAdminId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    superAgentId:{
+    superSeniorId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    agentId:{
+    superAgentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
         default: null,
     },
-    userId:{
+    agentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref: "users",
+        default: null,
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
         default: null,
     },
     creditReference: {
@@ -209,20 +209,20 @@ const UserSchema = new mongoose.Schema({
         default: 0,
     },
     availableLimit: {
-       type: Number,
+        type: Number,
         default: 0,
     },
     playerBalance: {
-       type: Number,
+        type: Number,
         default: 0,
     },
     exposureLimit: {
-       type: Number,
+        type: Number,
         default: 1000,
     },
     commission: {
         type: Number,
-         default: 0,
+        default: 0,
     },
     fixLimit: {
         type: Number,
@@ -269,12 +269,12 @@ const UserSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum : ["active","suspend","locked","cheater"],
+        enum: ["active", "suspend", "locked", "cheater"],
         default: "active",
     },
     isDeleted: {
-        type:Boolean,
-        default:false
+        type: Boolean,
+        default: false
     },
     casinoLimit: {
         type: Number,
@@ -291,9 +291,59 @@ const UserSchema = new mongoose.Schema({
     productFamily: {
         type: Number,
         default: 0,
+    },
+    transactionId: {
+        type: String,
+        default: null,
+    },
+    roundId: {
+        type: String,
+        default: null,
+    },
+    trnReason: {
+        type: Number,
+        default: null,
+    },
+    trnDescription: {
+        type: String,
+        default: null,
+    },
+    gameplayTags: {
+        type: [String],
+        default: [],
+    },
+    debitTransactionIds: {
+        type: [String],
+        default: []
+    },
+    bonusId: {
+        type: String,
+        default: null
+    },
+    bonusType: {
+        type: Number,
+        default: 0
+    },
+    transactionHistory: {
+        type: [{
+            transactionId: String,
+            type: { type: String, enum: ['credit', 'debit'] },
+            amount: Number,
+            balanceBefore: Number,
+            balanceAfter: Number,
+            date: { type: Date, default: Date.now },
+        }],
+        default: []
+    },
+    reason: {
+        type: Number,
+        default: null,
+    },
+    transactionType: {
+        type: Number,
+        default: null,
     }
-},
-{ 
+}, { 
     timestamps: true
 });
 
