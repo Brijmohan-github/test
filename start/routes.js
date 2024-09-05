@@ -52,4 +52,14 @@ Route.post('/authenticate', 'AuthController.authenticate');
 
 
 // Update the route to use 'UserInfoController'
-Route.post('/userinfo', 'UserInfoController.userinfo')
+Route.post('/userinfo', 'UserInfoController.userinfo');
+
+Route.post('/getBalance', 'BalanceController.getBalance');
+
+
+Route.post('/debitRequest', 'DebitRequestController.debitRequest');
+
+Route.post('/creditRequest', 'CreditRequestController.creditRequest');
+
+
+Route.post('/cancelRequest', 'CancelRequestController.cancelRequest');
