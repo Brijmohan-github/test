@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const PlayerSchema = new Schema({
   token: String,
   gameId: String,
-  productFamily: Enum,
+  productFamily: String,
   sessionId: String,
   userId: String,
   currency: String,
-  balance: Decimal,
+  balance: String,
   username: String,
 });
 
