@@ -38,3 +38,12 @@ Route.post('/creditRequest', 'CreditRequestController.creditRequest');
 
 Route.post('/cancelRequest', 'CancelRequestController.cancelRequest');
 
+Route.post('/bulkDebit', 'BulkDebitController.bulkDebit');
+
+Route.post('/offlineCredit', 'OfflineCreditController.offlineCredit');
+
+Route.post('/statusRequest', 'StatusRequestController.statusRequest');
+
+Route.post('/resolveRequest', 'ResolveRequestController.resolveRequest');
+
+Route.post('/bonusCreditRequest', 'BonusCreditRequestController.bonusCreditRequest');
