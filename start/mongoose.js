@@ -3,10 +3,8 @@ const mongoose = require('mongoose');
 
 const dbURI = process.env.DB_URI; // Use the environment variable for the database URI
 
-mongoose.connect(dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+// Connect to MongoDB without deprecated options
+mongoose.connect(dbURI);
 
 const db = mongoose.connection;
 
