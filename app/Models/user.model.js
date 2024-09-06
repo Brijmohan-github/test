@@ -322,32 +322,47 @@ const UserSchema = new mongoose.Schema({
     },
     bonusType: {
         type: Number,
-        default: 0
+        default: 0,
     },
-    transactionHistory: {
+    playerBalance: {
+        type: Number,
+        default: 0,
+      },
+      transactionHistory: {
         type: [{
             transactionId: String,
-            type: { type: String, enum: ['credit', 'debit'] },
+            type: { type: String, enum: ['credit', 'debit', 'bonus'] },
             amount: Number,
             balanceBefore: Number,
             balanceAfter: Number,
             date: { type: Date, default: Date.now },
+            bonusType: Number, // To track type of bonus if applicable
+            bonusId: String, // To track specific bonus campaign or jackpot
+            errorDescription: String,
+            originalRequest: String,
         }],
         default: []
     },
-    reason: {
+
+      
+      // Additional fields
+      debitTransactionIds: {
+        type: [String],
+        default: [],
+      },
+      bonusId: {
+        type: String,
+        default: null
+      },
+      bonusType: {
         type: Number,
-        default: null,
-    },
-    transactionType: {
-        type: Number,
-        default: null,
-    }
-}, { 
-    timestamps: true
-});
+        default: 0
+      },
+    
+    }, { 
+      timestamps: true
+    });
 
 UserSchema.plugin(mongoosePaginate);
-const User = mongoose.model("user", UserSchema);
 
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);

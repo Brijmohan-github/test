@@ -3,13 +3,13 @@ const User = require('../../Models/user.model'); // Ensure this path is correct
 class UserInfoController {
   // Fetch user details based on token
   async userinfo({ request, response }) {
-    const { token } = request.only(['token']);
+    const { Token } = request.only(['Token']);
 
-    console.log('Received Token:', token);
+    console.log('Received Token:', Token);
 
     try {
       // Validate the received token
-      if (!token) {
+      if (!Token) {
         return response.status(400).json({ message: 'Missing token parameter' });
       }
 
@@ -22,7 +22,7 @@ class UserInfoController {
       };
 
       // Simulate user lookup. Replace this with actual database query in production.
-      const user = token === 'validToken' ? dummyUser : null;
+      const user = Token === 'validToken' ? dummyUser : null;
 
       console.log('User Record:', user);
 
