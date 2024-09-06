@@ -354,6 +354,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: null
       },
+  
       bonusType: {
         type: Number,
         default: 0
